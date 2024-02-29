@@ -1,7 +1,10 @@
+const categoryContainer = document.getElementById("category-btns");
 const videoContainer = document.getElementById("video-container");
 const errorElement = document.getElementById("error-element");
 
+
 let selectedCategory = 1000;
+
 
 // load Category buttons
 const loadCategory = () => {
@@ -12,20 +15,32 @@ const loadCategory = () => {
     .then((data) => handleCategory(data.data));
 };
 
+
 // display category
 const handleCategory = (categories) => {
-  const categoryContainer = document.getElementById("category-btns");
-
   categories.forEach((category) => {
     const newBtn = document.createElement("button");
     newBtn.classList = `category-btn bg-[#25252533] hover:bg-gray-200 hover:text-red-500 px-4 py-1 rounded text-black font-medium`;
     newBtn.innerHTML = `${category.category}`;
     categoryContainer.appendChild(newBtn);
 
-    // add event listener in the category button
-    newBtn.addEventListener("click", () => loadVideo(category.category_id));
+    // add event listener in the category button & select active button
+    newBtn.addEventListener("click", () => {
+      loadVideo(category.category_id);
+
+      // to style active button
+      const allBtns = document.querySelectorAll('.category-btn');
+      for(let btn of allBtns){
+        btn.classList.remove('bg-red-500', 'text-[#fff]');
+      }
+      newBtn.classList.add('bg-red-500', 'text-[#fff]' );
+    });
+
+    
+
   });
 };
+
 
 // load videos info from api
 const loadVideo = async (categoryId) => {
@@ -33,6 +48,8 @@ const loadVideo = async (categoryId) => {
   const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${selectedCategory}`;
   const res = await fetch(videoUrl);
   const data = await res.json();
+
+  // to display error message if no data found
   if (data.data.length === 0) {
     videoContainer.innerHTML = "";
     errorElement.classList.remove("hidden");
@@ -41,6 +58,7 @@ const loadVideo = async (categoryId) => {
     handleVideos(data.data);
   }
 };
+
 
 // handle videos
 const handleVideos = (videos) => {
@@ -84,6 +102,9 @@ const handleVideos = (videos) => {
     videoContainer.appendChild(newCard);
   });
 };
+
+
+
 
 loadCategory();
 loadVideo(selectedCategory);
