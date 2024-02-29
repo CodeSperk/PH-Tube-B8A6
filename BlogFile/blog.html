@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PH Tube Blog</title>
+
+    <!-- DaisyUI and tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="container mx-auto" style="
+font-family: Inter">
+  
+<!-- Header Section -->
+<header class="py-10 md:mx-2 lg:mx-8">
+  <!-- Navbar -->
+  <nav class="bg-base-100 pb-8 navbar">
+    <div class="navbar-start">
+      <img src="../Resources/Logo.png" alt="">
+    </div>
+    
+    <div class="navbar-end">
+      <a href="../index.html"><button class="bg-red-500 text-white py-1 md:py-2.5 px-2 md:px-5 rounded font-medium">Home</button></a>
+    </div>
+  </nav>
+  <hr>
+  <!--  -->
+  <section class="w-full flex justify-center mt-8 text-center flex flex-col">
+    <h1 class="text-2xl lg:text-3xl font-bold md:bg-red-200 w-fit mx-auto py-1 px-4 rounded text-gray-900">Must-Read Blogs for Web Developers</h1>
+  </section>
+</header>
+<main class="text-justify space-y-16 px-2 md:px-4 lg:px-12 my-8 max-w-4xl mx-auto">
+  <!-- Blog 01 -->
+  <article class="space-y-2">
+    <h2 class="text-2xl font-semibold mb-4 text-red-500">Scope of var, let & const</h2>
+    <p>All of these three keywords are used to declare variable in Javascript. The scope or variables declared with var, let & const are varies. Scope can  affect the accessibility from different parts of your code. Now, I will explain scope of each of these variable briefly. Here you go...  </p>
+    <div class="ml-3">
+      <span class="font-bold">1. var: </span> <span> Var is Function Scoped.</span>
+      <p>If Var is declared in any function it can only be accessible within the function. But if you declare 'var' outside the function, it became a global variable, meaning you will be able to access it from anywhere in the code. <br>Moreover, Declaration of var is moved to the top of its container. It is called Hoisting.</p>
+    </div>
+    <div class="ml-3">
+      <span class="font-bold">2. let: </span> <span>let is block-scoped. </span>
+        <p>Variable Declaration with 'let' are block-scoped. So if you declare with 'let' keyword, you can access it only from the that block. Here block means parts enclosed by curly braces.</p>
+      <p>Variable 'let' are not hoisted to the top.</p>
+    </div>
+    <div class="ml-3 mb-4">
+      <span class="font-bold">3. const: </span> <span>Const is also block-scoped. </span>
+        <p>It can neither be hoisted nor accessible from outside the block like 'let'</p>
+      <p>However, Const is Constant. The only difference between let and const is const can't be reassigned but let.</p>
+    </div>
+
+    <a class="font-bold" href="#">Click here to read more details...</a>
+  </article>
+
+   <!-- Blog 02 -->
+  <article class="space-y-2">
+    <h2 class="text-2xl font-semibold mb-4 text-red-500">Cases of null and undefined</h2>
+    <p>In Javascript 'null' and 'undefined' are two primitive data types.Having some similarities, there are some difference among them.Now I will explain them in brief. Here you go...  </p>
+    <div class="ml-3">
+      <span class="font-bold">1. null: </span> <span>Used to assign Intentional Absence of Value and Resetting Variables </span>
+        <p>It is used to set the intentional absence of any object value. It is often used to indicate that a variable or property should have no value or that a function should return no meaningful result. Moreover, You can assign null to a variable to clear its value. </p>
+    </div>
+    <div class="ml-3">
+      <span class="font-bold">2. undefined: </span> <span>Default Value, Functin Return Value & Object Properties.</span>
+      <p>  It represents the absence of a value in a variable or property that has not been assigned a value. It is a default value for uninitialized variables. It is also returned by functions that do not explicitly return a value.</p>      
+    </div>
+
+    <p>Finally, Null and undefined are same as value but not as types. For example, `null == undefined` is true but `null === undefined` is false.  </p>
+
+    <a class="font-bold" href="#">Click here to read more details...</a>
+  </article>
+
+   <!-- Blog 03 -->
+  <article class="space-y-2">
+    <h2 class="text-2xl font-semibold mb-4 text-red-500">What is REST API?</h2>
+    <p>
+      A REST API, short for Representational State Transfer Application Programming Interface, is a widely-used approach to building web services and APIs. It is based on the principles of REST, which is an architectural style for designing networked applications. </p>
+      <div class="ml-3">
+        <span class="font-bold">Resources: </span> <span> 
+          In a REST API, resources are the central abstractions. Each resource is represented by a unique URL (Uniform Resource Locator), such as /books, /users, or /products. These URLs serve as endpoints that clients can interact with..</span>
+      </div>
+      <div class="ml-3">
+        <span class="font-bold">HTTP Methods: </span> <span> 
+          REST APIs rely on standard HTTP methods, including:</span>
+          <ul class="ml-8 list-disc">
+            <li><span class="font-semibold">GET:</span>Used to retrieve data from a resource.</li>
+            <li><span class="font-semibold">POST:</span>Used to create new resources.</li>
+            <li><span class="font-semibold">PUT:</span>Used to update existing resources.</li>
+            <li><span class="font-semibold">DELETE:</span>Used to remove resources.</li>
+          </ul>
+      </div>
+      <div class="ml-3">
+        <span class="font-bold">Statelessness: </span> <span> 
+          REST APIs are stateless, meaning that every client request must include all the information required for the server to comprehend and handle it. There is no persistent session state stored on the server between requests, simplifying scalability and maintenance.</span>
+      </div>
+      <div class="ml-3">
+        <span class="font-bold">Uniform Interface: </span> <span> 
+          One of the key principles of REST is a uniform and consistent interface. This means that the same set of standard HTTP methods and status codes is used across different APIs, making it easier for developers to work with various RESTful services.</span>
+      </div>
+      <div class="ml-3">
+        <span class="font-bold">Representations: </span> <span> 
+          Resources in a REST API can have multiple representations, such as JSON, XML, or HTML. Clients can request the representation they prefer by specifying the appropriate "Content-Type" header in their requests.</span>
+      </div>
+      <div class="ml-3">
+        <span class="font-bold">Status Codes: </span> <span> 
+          HTTP status codes are used to indicate the outcome of a request. For example, a 200 OK status code indicates a successful response, while a 404 Not Found status code indicates that the requested resource was not found.</span>
+      </div>
+  </article>
+
+</main>
+
+
+</body>
+</html>
