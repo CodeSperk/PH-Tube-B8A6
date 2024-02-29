@@ -1,9 +1,15 @@
 const categoryContainer = document.getElementById("category-btns");
 const videoContainer = document.getElementById("video-container");
 const errorElement = document.getElementById("error-element");
-
+const sortBtnEl = document.getElementById("sort-btn");
 
 let selectedCategory = 1000;
+let sorted = false;
+
+sortBtnEl.addEventListener("click", () => {
+  sorted = true;
+  loadVideo(selectedCategory, sorted);
+});
 
 
 // load Category buttons
@@ -14,7 +20,6 @@ const loadCategory = () => {
     .then((res) => res.json())
     .then((data) => handleCategory(data.data));
 };
-
 
 // display category
 const handleCategory = (categories) => {
@@ -29,36 +34,50 @@ const handleCategory = (categories) => {
       loadVideo(category.category_id);
 
       // to style active button
-      const allBtns = document.querySelectorAll('.category-btn');
-      for(let btn of allBtns){
-        btn.classList.remove('bg-red-500', 'text-[#fff]');
+      const allBtns = document.querySelectorAll(".category-btn");
+      for (let btn of allBtns) {
+        btn.classList.remove("bg-red-500", "text-[#fff]");
       }
-      newBtn.classList.add('bg-red-500', 'text-[#fff]' );
+      newBtn.classList.add("bg-red-500", "text-[#fff]");
     });
-
-    
-
   });
 };
 
-
 // load videos info from api
-const loadVideo = async (categoryId) => {
+const loadVideo = async (categoryId, sorted) => {
   selectedCategory = categoryId;
-  const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${selectedCategory}`;
+  const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${categoryId}`;
   const res = await fetch(videoUrl);
   const data = await res.json();
+
+  // Sort if sorted flag is true
+  if (sorted) {
+    data.data.sort((a, b) => {
+      let totalViews1st = a.others?.views;
+      let totalViews2nd = b.others?.views;
+      totalViews1st = parseFloat(totalViews1st.replace("k", "")) || 0;
+      totalViews2nd = parseFloat(totalViews2nd.replace("k", "")) || 0;
+
+      if(a.others?.views.toLowerCase().includes("k")){
+        totalViews1st = totalViews1st * 1000;
+      }
+      if(b.others?.views.toLocaleLowerCase().includes("k")){
+        totalViews2nd = totalViews2nd * 1000;
+      }
+
+      return totalViews2nd - totalViews1st;
+    });
+  }
 
   // to display error message if no data found
   if (data.data.length === 0) {
     videoContainer.innerHTML = "";
     errorElement.classList.remove("hidden");
   } else {
-    errorElement.classList.add('hidden');
+    errorElement.classList.add("hidden");
     handleVideos(data.data);
   }
 };
-
 
 // handle videos
 const handleVideos = (videos) => {
@@ -68,7 +87,6 @@ const handleVideos = (videos) => {
   videos.map((video) => {
     const { title, thumbnail, authors, others } = video;
     // videoContainer.setAttribute('class');
-
     // to set verified badge to the verified profile
     let verifiedBadge = "";
     if (authors[0].verified) {
@@ -103,8 +121,5 @@ const handleVideos = (videos) => {
   });
 };
 
-
-
-
 loadCategory();
-loadVideo(selectedCategory);
+loadVideo(selectedCategory, sorted);
