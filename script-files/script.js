@@ -1,6 +1,5 @@
 let selectedCategory = 1000;
 
-
 // load Category buttons
 const loadCategory = () => {
   const categoryUrl =
@@ -46,6 +45,12 @@ const handleVideos = (videos) => {
 
   videos.map((video) => {
     const { title, thumbnail, authors, others } = video;
+    
+    // to set verified badge to the verified profile
+    let verifiedBadge = "";
+    if(authors[0].verified){
+      verifiedBadge = `<img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>`;
+    };
 
     // dynamic video card
     const newCard = document.createElement("div");
@@ -64,7 +69,7 @@ const handleVideos = (videos) => {
           <div id="verified-btn" class="flex gap-1">
             <p class="text-gray-500 text-sm"> ${authors[0].profile_name} </p>
 
-            ${authors[0].verified?  '<img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>' : ""}
+            ${verifiedBadge}
 
             </div>
           <p class="text-gray-500 text-sm">${others.views}</p>
