@@ -11,6 +11,11 @@ sortBtnEl.addEventListener("click", () => {
   loadVideo(selectedCategory, sorted);
 });
 
+let num = 4000;
+const hr = Math.floor(4000 / 3600);
+const min = Math.floor((num % 3600) / 60);
+let sec = (num % 3600) % 60;
+console.log(hr, min, sec);
 
 // load Category buttons
 const loadCategory = () => {
@@ -58,10 +63,10 @@ const loadVideo = async (categoryId, sorted) => {
       totalViews1st = parseFloat(totalViews1st.replace("k", "")) || 0;
       totalViews2nd = parseFloat(totalViews2nd.replace("k", "")) || 0;
 
-      if(a.others?.views.toLowerCase().includes("k")){
+      if (a.others?.views.toLowerCase().includes("k")) {
         totalViews1st = totalViews1st * 1000;
       }
-      if(b.others?.views.toLocaleLowerCase().includes("k")){
+      if (b.others?.views.toLocaleLowerCase().includes("k")) {
         totalViews2nd = totalViews2nd * 1000;
       }
 
@@ -86,6 +91,7 @@ const handleVideos = (videos) => {
 
   videos.map((video) => {
     const { title, thumbnail, authors, others } = video;
+
     // videoContainer.setAttribute('class');
     // to set verified badge to the verified profile
     let verifiedBadge = "";
@@ -93,13 +99,24 @@ const handleVideos = (videos) => {
       verifiedBadge = `<img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>`;
     }
 
+    // to display posted date
+    let postedDate = "";
+    postedDate = convertDate(others.posted_date);
+
+    if(others.posted_date){
+      postedDate = `<div class="absolute right-4 bottom-4 bg-black bg-opacity-80 text-gray-300 text-xs py-1 px-2 rounded">${postedDate} ago</div>`;
+    }
+
+      
+    
+
     // dynamic video card
     const newCard = document.createElement("div");
     newCard.classList = `w-[310px] mx-auto`;
     newCard.innerHTML = `
       <figure class="h-[160px] relative" >
         <img src=${thumbnail} alt=${title} class="h-full w-full rounded-xl hover:rounded-none hover:opacity-60"/>
-        <div class="absolute right-4 bottom-4 bg-black bg-opacity-80 text-gray-300 text-xs py-1 px-2 rounded">${others.posted_date}</div>
+        ${postedDate}
       </figure>
 
       <div class="flex gap-2 items-start my-5">
@@ -119,6 +136,25 @@ const handleVideos = (videos) => {
     `;
     videoContainer.appendChild(newCard);
   });
+};
+
+
+
+// handle posted date
+const convertDate = sec => {
+  const parsedSeconds = parseInt(sec);
+  const hours = Math.floor(parsedSeconds / 3600);
+  const minutes = Math.floor((parsedSeconds % 3600) / 60);
+
+  let outputTime = "";
+
+  if (hours > 0) {
+    outputTime += `${hours} ${hours === 1 ? "hr" : "hrs"}`;
+  }
+  if (minutes >= 0) {
+    outputTime += ` ${minutes} ${minutes === 1 ? "min" : "mins"}`;
+  }
+  return outputTime.trim(); 
 };
 
 loadCategory();
