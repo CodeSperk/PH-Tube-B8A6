@@ -1,3 +1,5 @@
+let selectedCategory = 1000;
+
 
 // load Category buttons
 const loadCategory = () => {
@@ -25,7 +27,8 @@ const handleCategory = (categories) => {
 
 // load videos info from api
 const loadVideo = async (categoryId) => {
-  const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${categoryId}`;
+  selectedCategory = categoryId;
+  const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${selectedCategory}`;
   const res = await fetch(videoUrl);
   const data = await res.json();
   handleVideos(data.data);
@@ -33,6 +36,7 @@ const loadVideo = async (categoryId) => {
 
 // handle videos
 const handleVideos = (videos) => {
+  console.log(videos);
   const videoContainer = document.getElementById("video-container");
   
   //clear before display new video
@@ -42,6 +46,7 @@ const handleVideos = (videos) => {
 
   videos.map((video) => {
     const { title, thumbnail, authors, others } = video;
+
     // dynamic video card
     const newCard = document.createElement("div");
     newCard.classList = `w-[310px] mx-auto`;
@@ -58,7 +63,10 @@ const handleVideos = (videos) => {
           <h2 class="text-base font-semibold">${title}</h2>
           <div id="verified-btn" class="flex gap-1">
             <p class="text-gray-500 text-sm"> ${authors[0].profile_name} </p>
-          <img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>           </div>
+
+            ${authors[0].verified?  '<img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>' : ""}
+
+            </div>
           <p class="text-gray-500 text-sm">${others.views}</p>
         </div>
   </div>
@@ -72,6 +80,6 @@ const handleVideos = (videos) => {
 
 
 loadCategory();
-loadVideo('1000');
+loadVideo(selectedCategory);
 
 
