@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PH TUBE</title>
+
+  <!-- DaisyUI and tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body class="container mx-auto" style="
+  font-family: Inter">
+
+  <!-- Header Section
+    ====================== -->
+  <header class="py-10 md:mx-2 lg:mx-8">
+    <!-- Navbar -->
+    <nav class="bg-base-100 pb-8 navbar">
+      <div class="navbar-start">
+        <img src="./Resources/Logo.png" alt="">
+      </div>
+      <div class="navbar-center">
+        <button class="bg-[#25252533] py-1 md:py-2.5 px-2 md:px-5 rounded font-bold">Sort by view</button>
+      </div>
+      <div class="navbar-end">
+        <a href=""><button class="bg-red-500 text-white py-1 md:py-2.5 px-2 md:px-5 rounded font-medium">Blog</button></a>
+      </div>
+    </nav>
+    <hr>
+
+
+    <!-- video categories -->
+    <section class="w-full flex justify-center mt-8">
+      <div class="tabs">
+
+      </div>
+    </section>
+  </header>
+
+  <!-- Main Section
+    ================== -->
+  <main class=" md:mx-2 lg:mx-8">
+    
+    <!-- Video cards container -->
+    <section>   
+      <div id="video-container">
+      </div> 
+    </section>
+  </main>
+  
+
+
+  <script src="./script-files/script.js"></script>
+</body>
+
+</html>
