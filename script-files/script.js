@@ -1,3 +1,6 @@
+const videoContainer = document.getElementById("video-container");
+const errorElement = document.getElementById("error-element");
+
 let selectedCategory = 1000;
 
 // load Category buttons
@@ -18,9 +21,9 @@ const handleCategory = (categories) => {
     newBtn.classList = `category-btn bg-[#25252533] hover:bg-gray-200 hover:text-red-500 px-4 py-1 rounded text-black font-medium`;
     newBtn.innerHTML = `${category.category}`;
     categoryContainer.appendChild(newBtn);
-    
+
     // add event listener in the category button
-    newBtn.addEventListener('click', () => loadVideo(category.category_id));
+    newBtn.addEventListener("click", () => loadVideo(category.category_id));
   });
 };
 
@@ -30,27 +33,29 @@ const loadVideo = async (categoryId) => {
   const videoUrl = `https://openapi.programming-hero.com/api/videos/category/${selectedCategory}`;
   const res = await fetch(videoUrl);
   const data = await res.json();
-  handleVideos(data.data);
+  if (data.data.length === 0) {
+    videoContainer.innerHTML = "";
+    errorElement.classList.remove("hidden");
+  } else {
+    errorElement.classList.add('hidden');
+    handleVideos(data.data);
+  }
 };
 
 // handle videos
 const handleVideos = (videos) => {
-  console.log(videos);
-  const videoContainer = document.getElementById("video-container");
-  
   //clear before display new video
-  videoContainer.innerHTML= ''; 
-
-
+  videoContainer.innerHTML = "";
 
   videos.map((video) => {
     const { title, thumbnail, authors, others } = video;
-    
+    // videoContainer.setAttribute('class');
+
     // to set verified badge to the verified profile
     let verifiedBadge = "";
-    if(authors[0].verified){
+    if (authors[0].verified) {
       verifiedBadge = `<img src="./Resources/fi_10629607.svg" alt="Profile Badge" class="ml-2 h-4"/>`;
-    };
+    }
 
     // dynamic video card
     const newCard = document.createElement("div");
@@ -77,14 +82,8 @@ const handleVideos = (videos) => {
   </div>
     `;
     videoContainer.appendChild(newCard);
-
   });
 };
 
-
-
-
 loadCategory();
 loadVideo(selectedCategory);
-
-
